@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>text-shadow字体特效</title>
+    <script src="jquery-2.0.3.js"></script>
+    <style>
+        p {
+            font-size: 40px;
+            font-weight: bold;
+            margin-left: 50px;
+        }
+
+        p:nth-of-type(1) {
+            text-shadow: 3px 3px 3px red;
+        }
+
+        p:nth-of-type(2) {
+            text-shadow: 8px 8px 3px yellow, 15px 15px 3px red;
+        }
+
+        p:nth-of-type(3) {
+            display: block;
+            background: #000;
+            text-shadow: 0 0 5px #fff,
+            0 -3px 4px #ff3,
+            2px -8px 6px #fd3,
+            -2px -12px 11px #f80,
+            2px -22px 18px #f20;;
+        }
+
+        p:nth-of-type(4) {
+            display: block;
+            color: #000;
+            background: #000;
+            text-shadow: -1px -1px #fff, 1px 1px #333;
+        }
+
+        p:nth-of-type(5) {
+            display: block;
+            color: #eee;
+            background: #eee;
+            text-shadow: 1px 1px #fff, -1px -1px #333;
+        }
+
+        p:nth-of-type(6) {
+            color: #fff;
+            text-shadow: 0 -1px deepskyblue, 0 1px deepskyblue, 1px 0 deepskyblue, -1px 0 deepskyblue;
+        }
+        p:nth-of-type(7){
+            text-shadow: 0 0 10px red;
+        }
+    </style>
+</head>
+<body>
+<p class="hah">字体特效</p>
+
+<p>字体特效</p>
+
+<p>字体特效</p>
+
+<p>字体特效</p>
+
+<p>字体特效</p>
+
+<p>字体特效</p>
+
+<p>字体特效</p>
+</body>
+<script>
+    $(function () {
+        // get(index)通过下标的形式，在全局中找到同类，但是进行样式修改和内容读取，只能通过js方式实行
+        $('p').get(0).style.color='blue'
+        console.log($('p').get(0).innerHTML);
+    })
+</script>
+</html>

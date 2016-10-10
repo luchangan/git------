@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>顶部固定导航栏</title>
+    <script src="jquery-2.0.3.js"></script>
+    <style>
+        body {
+            width: 100%;
+            height: 2000px;
+            background-color: deepskyblue;
+            margin: 0;
+            position: relative;
+        }
+
+        .box {
+            width: 100%;
+            height: 50px;
+            position: absolute;
+            top: 100px;
+            background: #fff;
+        }
+    </style>
+    <script>
+        $(function () {
+            // 页面的滚动事件
+            $(window).scroll(function () {
+                // 定义一个变量，盛放滚动条距离页面顶部的高度
+                var h = $('html').scrollTop();
+                // 当滚动条距离顶部距离不小于导航栏距离顶部的距离时，固定导航栏的位置，并让他始终显示在页面上
+                if (h >= 100) {
+                    $('.box').css('position', 'fixed').css('top', '0px');
+                } else {
+                    // 当滚动条距离顶部小于导航栏距离顶部的距离时，导航栏则采用初设的css样式
+                    $('.box').css('position','absolute').css('top','100px');
+                }
+            })
+
+        })
+
+    </script>
+</head>
+<body>
+<div class="box"></div>
+</body>
+</html>
