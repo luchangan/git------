@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>canvas绘制涂鸦画板</title>
+    <script src="jquery-2.0.3.js"></script>
+    <style type="text/css">
+        #canvas {
+            background: pink;
+            float: left;
+            position: relative;
+            margin-right: 50px;
+        }
+
+        div {
+            position: relative;
+            float: right;
+            right: 700px;
+        }
+    </style>
+</head>
+<script type="text/javascript">
+    $(function () {
+        var context = canvas.getContext("2d"); //方法返回一个用于在画布上绘图的环境，目前的合法参数是2d
+        var s = {
+            z: 2,
+            e: "#000"
+        };
+        console.log(s);
+        //选择画笔的尺寸
+        $('select:eq(0)').change(function () {
+            s.z = this.value;
+        })
+        //选择画笔的颜色
+        $('select:eq(1)').change(function () {
+            s.e = this.value;
+        })
+        //绘制
+        $('button:eq(0)').click(function () {
+            $('canvas').mousedown(draw);
+        })
+
+        function draw(e) {
+            s.a = e.clientX;
+            s.b = e.clientY;
+            context.beginPath(); //起始一条路径
+            context.moveTo(s.a, s.b); //把路径移动到画布的指定点
+            context.lineWidth = s.z; // 路径宽度
+            context.strokeStyle = s.e; //设置或返回用于笔触的颜色、渐变或模式
+            document.onmousemove = function (e) {
+                s.c = e.clientX;
+                s.d = e.clientY;
+                context.lineTo(s.c, s.d);//添加一个新点，然后在画布中创建从该点到最后指定点的线条
+                context.stroke();//绘制已定义的路径
+            }
+            document.onmouseup = function (e) {
+                document.onmousemove = ""
+            }
+        }
+    })
+</script>
+<body>
+<div>
+    <button>画笔</button>
+    <br>
+    <select>
+        <option value="">请选择画笔粗细</option>
+        <option value="1">1</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="30">30</option>
+    </select><br>
+
+    <select>
+        <option value="">请选择画笔颜色</option>
+        <option value="#000">黑色</option>
+        <option value="#fff">白色</option>
+        <option value="red">红色</option>
+        <option value="pink">粉红色</option>
+        <option value="yellow">黄色</option>
+    </select><br>
+    <button>橡皮擦</button>
+    <a href="demo.html">
+        <button id="clear">清空画布</button>
+    </a><br>
+</div>
+<canvas id="canvas" width="800" height="800"></canvas>
+</body>
+<script src="jquery-2.0.3.js"></script>
+<div style="text-align:center;">
+</div>
+</html>

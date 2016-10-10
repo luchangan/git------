@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery-2.0.3.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        a {
+            color: #333;
+            text-decoration: none
+        }
+
+        ul {
+            list-style: none;
+            height: 30px;
+            border-bottom: 5px solid #F60;
+            margin-top: 20px;
+            padding-left: 50px;
+        }
+
+        ul li {
+            float: left
+        }
+
+        ul li a {
+            display: block;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            width: 120px;
+            background: #efefef;
+            margin-left: 1px;
+        }
+
+        a.on,
+        a:hover {
+            background: #F60;
+            color: #fff;
+            /*transition:0.5s ease;*/
+            /*width:150px;*/
+        }
+    </style>
+    <script>
+        $(function () {
+            $('a').hover(function () {
+                        $(this).animate({
+                            width: '150px'
+                        }, 30)
+                    },
+                    function () {
+                        $(this).animate({
+                            width: '120px'
+                        }, 30)
+                    })
+        })
+        //			window.onload = function() {
+        //				var aA = document.getElementsByTagName('a');
+        //				for(var i = 0; i < aA.length; i++) {
+        //					aA[i].onmouseover = function() {
+        //						var This = this;
+        //						clearInterval(This.time);
+        //						This.time = setInterval(function() {
+        //							This.style.width = This.offsetWidth + 8 + "px";
+        //							if(This.offsetWidth >= 160)
+        //								clearInterval(This.time);
+        //						}, 30)
+        //					}
+        //					aA[i].onmouseout = function() {
+        //						clearInterval(this.time);
+        //						var This = this;
+        //						this.time = setInterval(function() {
+        //							This.style.width = This.offsetWidth - 8 + "px";
+        //							if(This.offsetWidth <= 120) {
+        //								This.style.width = '120px';
+        //								clearInterval(This.time);
+        //							}
+        //						}, 30)
+        //					}
+        //				}
+        //			}
+    </script>
+</head>
+
+<body>
+<ul>
+    <li>
+        <a class="on" href="#">首　　页</a>
+    </li>
+    <li>
+        <a href="#">新闻快讯</a>
+    </li>
+    <li>
+        <a href="#">产品展示</a>
+    </li>
+    <li>
+        <a href="#">售后服务</a>
+    </li>
+    <li>
+        <a href="#">联系我们</a>
+    </li>
+</ul>
+</body>
+
+</html>

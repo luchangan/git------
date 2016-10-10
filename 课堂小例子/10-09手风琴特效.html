@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>手风琴</title>
+	
+	<style>
+		html,body,div,ul,li,h2{
+			margin:0;
+			padding:0;
+		}
+		#box{
+			height: 260px;
+			width:1200px;
+			margin:50px auto;
+			overflow: hidden;
+			/*border:1px solid red;*/
+		}
+		#box ul{
+			width:1210px;
+		}
+		#box ul li{
+			width: 200px;
+			height: 260px;
+			float:left;
+			list-style: none;
+		}
+		.text{
+			position:relative;
+			font-family:"楷体";
+			font-size:26px;
+			color:white;
+			font-weight: bold;
+			background:rgba(0,0,0,0.5);
+			width:100%;
+			height: 100%;
+		}
+		.text h2{
+			margin: 0 auto;
+			width: 30px;
+			padding-top: 20px;
+			/*margin-left: 83px;*/
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li style="background:url(images/1.jpg) no-repeat center">
+				<div class="text">
+					<h2>园林酒店</h2>
+				</div>
+			</li>
+			<li style="background:url(images/2.jpg) no-repeat center">
+				<div class="text">
+					<h2>设计师酒店</h2>
+				</div>
+			</li>
+			<li style="background:url(images/3.jpg) no-repeat center">
+				<div class="text">
+					<h2>青年旅馆</h2>
+				</div>
+			</li>
+			<li style="background:url(images/4.jpg) no-repeat center">
+				<div class="text">
+					<h2>特色客栈</h2>
+				</div>
+			</li>
+			<li style="background:url(images/5.jpg) no-repeat center">
+				<div class="text">
+					<h2>海岛酒店</h2>
+				</div>
+			</li>
+			<li style="background:url(images/6.jpg) no-repeat center">
+				<div class="text">
+					<h2>海外温泉</h2>
+				</div>
+			</li>
+		</ul>
+	</div>
+ <script type = "text/javascript" src = "js/jquery-1.11.1.min.js"></script>
+ <script>
+      // alert($)
+ 	$(function(){
+ 		$('#box ul li').hover(function(){
+ 			$(this).stop().animate({width:"400px"},300).siblings().stop().animate({width:"160px"},300);
+ 			$(this).find('.text').fadeOut();
+ 		},function(){
+ 			$('#box ul li').stop().animate({width:"200px"},1000)
+ 			$(this).find('.text').fadeIn();
+ 		});
+ 	})
+ </script>
+</body>
+</html>

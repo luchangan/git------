@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证码</title>
+    <style>
+        span{
+            float: left;
+            font-size: 20px;
+            line-height: 40px;
+        }
+        #btn{
+            display: inline-block;
+            width: 100px;
+            height: 40px;
+            background-color: #eee;
+            line-height: 40px;
+            font-size: 20px;
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <span>验证码：</span>
+    <div id="btn" onclick="show()"></div>
+    <script>
+        function code(){
+            var a = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
+            var b = "";
+            for(var i=0;i<4;i++){
+                var c = Math.floor(Math.random()*62);
+                b += a.charAt(c);
+            }
+            return b;
+        }
+        function show(){
+            document.getElementById('btn').innerHTML = code();
+        }
+        window.onload = show();
+    </script>
+</body>
+</html>

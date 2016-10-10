@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 2000px;
+            background-color: cyan;
+        }
+
+        div {
+            width: 100%;
+            height: 35px;
+            background: lightgray;
+            position: absolute;
+            top: 100px;
+        }
+    </style>
+    <script>
+        window.onscroll = function () {
+            var t = document.documentElement.scrollTop;
+            var odiv = document.getElementById('odiv');
+            if (t >= 100) {
+                odiv.style.position = 'fixed';
+                odiv.style.top = '0px'
+            }
+            else {
+                odiv.style.position = 'absolute';
+                odiv.style.top = '100px';
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="odiv"></div>
+</body>
+</html>

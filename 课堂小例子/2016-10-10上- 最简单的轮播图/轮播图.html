@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+		*{
+			padding: 0;
+			margin:0;
+			border:0;
+			box-sizing: border-box;
+		}
+		body{
+			background-color: #efefef;
+		}
+		#container{
+			width:800px;
+			height: 500px;
+			margin:150px auto;
+			box-shadow: 0 0 15px rgba(0,0,50,0.7);
+			overflow: hidden;
+		}
+		#box{
+			width:800px;
+			position: relative;
+		}
+
+	/* 放置图片 */
+		#img{
+			width:4000px;
+			list-style-type: none;
+			position:absolute;
+			top:0;
+			left:0; 
+		}
+		#img li img{
+			width: 800px;
+			height: 500px;
+		}
+		#img li{
+			float: left;
+		}
+
+	/* 放置圆点*/
+		#point{
+			position:absolute;
+			top:460px;
+			left:312.5px;
+			list-style-type: none;
+		}
+		#point li div {
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			background: #efefef;
+			box-shadow: 0 0 1px #999;
+			cursor: pointer;
+		}
+		#point li div:hover{
+			box-shadow: 0 0 2px #444;
+		}
+		#point li {
+			float: left;
+			margin:0 10px;
+		}
+		#point li .selected{
+			background: orange;
+		}
+
+	/* 上一张，下一张 */
+		#img-prev,#img-next{
+			position: absolute;
+			height:500px;
+			width:80px;
+			line-height: 500px;
+			text-align: center;
+			/*background: rgba(0,0,10,.3);*/
+			cursor:pointer;
+			/*display:none;*/
+		}
+		#img-prev{
+			left:0;
+		}
+		#img-next{
+			right:0;
+		}
+		#img-prev span,#img-next span{
+			font-size: 50px;
+			color:#F7F1F1;
+			display: none
+		}
+	</style>
+</head>
+<body>
+	<section id="container">
+		<div id="box">
+			<ul id="img">
+				<li><img src="i1.jpg" alt=""></li>
+				<li><img src="i2.png" alt=""></li>
+				<li><img src="i3.jpg" alt=""></li>
+				<li><img src="i4.jpg" alt=""></li>
+				<li><img src="i5.jpg" alt=""></li>
+			</ul>
+			<ul id="point">
+				<li><div class="selected"></div></li>
+				<li><div></div></li>
+				<li><div></div></li>
+				<li><div></div></li>
+				<li><div></div></li>
+			</ul>
+			<div id="img-prev" title="点击查看上一张"><span><</span></div>
+			<div id="img-next" title="点击查看下一张"><span>></span></div>
+		</div>
+	</section>
+	<script src="jquery-2.0.3.js"></script>
+	<script>
+	// 设置 next 和 prev 触碰时的样式
+		$("#box").children().not("ul").hover(function() {
+			$(this).children("span").css("display","inline-block")
+			$(this).css({
+				background:"rgba(0,0,10,.3)",
+				// borderRight:"15px solid rgba(0,0,0,.3)",
+				// borderLeft:"15px solid rgba(0,0,0,.3)"
+			})
+		},function() {
+			$(this).children("span").css("display","none")
+			$(this).css("background","rgba(0,0,0,0)")
+		})
+	// 点击下一张
+		var s = 0
+		$("#img-next").click(function() {
+				s -=800
+				if(s < -3200) {
+					s = 0
+				}
+				$("#img").animate({
+					left:s
+				},500)
+				// 小圆点的样式跟随图片而变化
+				var index = Math.abs(s) / 800
+				// $($("#point li").get(index)).children().addClass("selected").parent().siblings().children().removeClass("selected")
+				$("#point li").eq(index).children().addClass("selected").parent().siblings().children().removeClass("selected")
+			}
+		)
+	// 点击上一张
+		$("#img-prev").click(function() {
+				s += 800
+				if(s > 0) {
+					s = -3200
+				}
+				$("#img").animate({
+					left:s
+				},500)
+				// 小圆点的样式跟随图片而变化
+				var index = Math.abs(s) / 800
+				$($("#point li").get(index)).children().addClass("selected").parent().siblings().children().removeClass("selected")
+			}
+		)
+	//  点击小圆点轮播
+		$("#point").children("li").each(function() {
+			$(this).children("div").click(function() {
+
+				$(this).addClass("selected").parent().siblings().children().removeClass("selected")
+
+				s = $(this).parent("li").index() * (-800)
+				$("#img").animate({
+					left:s
+				},200)
+			})
+		}) 
+	//  自动轮播
+		bofang = function() {
+			s -= 800
+			if(s < -3200) {
+				s = 0
+			}
+			$("#img").animate({
+				left:s
+			},500)
+			// 小圆点的样式跟随图片而变化
+			var index = Math.abs(s) / 800
+			// console.log(index)
+			// console.log($("#point li").get(index))
+
+			$("#point li").eq(index).children().addClass("selected").parent().siblings().children().removeClass("selected")
+		}
+		var timer = setInterval(bofang,4000)
+	//  当鼠标悬浮于播放窗口时，停止自动播放
+		$("#box").hover(function() {
+			clearInterval(timer)
+		},function() {
+			timer = setInterval(bofang,4000)
+		})
+		
+	</script>
+</body>
+</html>
