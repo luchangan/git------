@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>登陆页面</title>
+    <meta charset="UTF-8">
+    <meta name="Keywords " content="$SiteKeywords "/>
+    <meta name="Description " content="$SiteDescription "/>
+    <link rel="stylesheet " type="text/css " href="css/globle.css "/>
+    <link rel="stylesheet " type="text/css " href="css/style.css "/>
+    <script src='js/jquery-2.0.3.js'></script>
+    <script src='js/index.js'></script>
+</head>
+<style type="text/css">
+    body{
+        background:url(./images/壁纸3.jpg);
+        background-repeat:no-repeat;
+        /*background-size: 100%;*/
+    }
+    .odiv {
+        margin: 100px auto;
+        /*border:1px solid #cccccc;*/
+        width:400px;
+        padding: 10px;
+        border-radius: 10px;
+        background:#00bfff;
+    }
+    h2{
+        text-align: center;
+        font-size: 30px;
+        color:red;
+        font-family:'楷体';
+    }
+    ul {
+        width: 280px;
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    ul li {
+        height: 50px;
+        margin-bottom: 5px;
+
+    }
+
+    ul li label {
+        float: left;
+        display: inline-block;
+        width: 80px;
+        height: 40px;
+        line-height: 25px;
+        text-align: right;
+        color:#fff;
+        font-size: 15px;
+        font-family:'楷体';
+    }
+
+    ul li input {
+        border: 1px solid #cccccc;
+        height: 20px;
+        border-radius: 3px;
+    }
+
+    .submit-btn {
+        height: 30px;
+        margin-left: 40px;
+    }
+
+    .submit-btn2 {
+        height: 30px;
+        margin-left: 65px;
+
+    }
+</style>
+<body>
+<div class="odiv">
+    <h2>留言板登陆页面</h2>
+    <ul>
+        <li>
+            <label for="">账号：</label>
+            <input type="text" name="account" required pattern="^[A-z][A-z0-9]{2,13}$"/>
+            <div></div>
+        </li>
+        <li>
+            <label>密码：</label>
+            <input type="password" name="password" required pattern="[A-z0-9]{5,15}">
+            <div></div>
+        </li>
+        <li>
+            <input class="submit-btn2" type="submit" value="注册"><input class="submit-btn2" type="submit" value="登录">
+        </li>
+    </ul>
+</div>
+</body>
+<script>
+    $(function () {
+        $('input:eq(0)').focus(function () {
+            $('div:eq(1)').html('请输入3-14位字符,包括数字,字母,首位需为字母.').css('color', 'blue');
+        })
+        $('input:eq(0)').blur(function () {
+            var reg = /^[A-z][A-z0-9]{2,13}$/;
+            var txt1 = $('input:eq(0)').val();
+            if (reg.test(txt1)) {
+                $('div:eq(1)').html('账号符合规则').css('color', 'green')
+            } else {
+                $('div:eq(1)').html('账号不符合规则，请重新输入').css('color', 'red')
+            }
+        })
+        $('input:eq(1)').focus(function () {
+            $('div:eq(2)').html('请输入6-16位字符，包括数字,字母。').css('color', 'blue');
+        })
+        $('input:eq(1)').blur(function () {
+            var reg = /^[A-z0-9]{5,15}$/;
+            var txt1 = $('input:eq(1)').val();
+            if (reg.test(txt1)) {
+                $('div:eq(2)').html('密码符合规则').css('color', 'green')
+            } else {
+                $('div:eq(2)').html('密码不符合规则，请重新输入').css('color', 'red')
+            }
+        })
+        $('input:eq(2)').click(function () {
+            location.href='reg.html'
+        })
+        $('input:eq(3)').click(function () {
+            var account = $('input:eq(0)').val();
+            var password = $('input:eq(1)').val();
+            console.log('账号：' + account)
+            console.log('密码：' + password)
+                $.post('/Jqindex/post','account=' + account + '&password=' + password, function (response, statusText, xhr) {
+                    if (response == '0') {
+                        alert('对不起，该用户不存在，请注册。')
+                    } else {
+                        alert('恭喜你，登陆成功')
+                        location.href = 'loadmessage.html';
+                    }
+                })
+        })
+    })
+</script>
+</html>

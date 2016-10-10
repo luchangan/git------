@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>信息查询</title>
+    <meta charset="UTF-8">
+    <meta name="Keywords " content="$SiteKeywords "/>
+    <meta name="Description " content="$SiteDescription "/>
+    <link rel="stylesheet " type="text/css " href="css/globle.css "/>
+    <link rel="stylesheet " type="text/css " href="css/style.css "/>
+    <script src='js/jquery-2.0.3.js'></script>
+    <script src='js/index.js'></script>
+</head>
+<style>
+    body {
+        background: #9acfea;
+    }
+
+    main {
+        padding-top: 50px;
+        /*background: #ffffff;*/
+        background-image: url('images/贝壳.jpg');
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+    .title {
+        margin: 0px;
+        padding: 0px;
+        margin-bottom: 10px;
+        color: #F34F02;
+        font-size: 35px;
+        font-family: '楷体';
+        cursor:default;
+    }
+
+    .myul li span {
+        display: inline-block;
+        width: 120px;
+        font-size: 20px;
+        font-family: '楷体';
+        font-weight: bold;
+        cursor:default;
+    }
+
+    .myul li input {
+        width: 400px;
+        /*height:50px;*/
+        margin: 20px 0;
+        font-family: '楷体';
+        font-size: 20px;
+        border: none;
+        border: 2px solid #dddddd;
+    }
+
+    .myul li textarea {
+        resize: none;
+        font-family: '楷体';
+        border: 2px solid #dddddd;
+    }
+
+    .myul li button {
+        border: none;
+        font-family: '楷体';
+        border-radius: 5px;
+        background: #F15694;
+        width: 100px;
+        height: 40px;
+        font-size: 20px;
+        margin-top: 10px;
+        position: absolute;
+        top: 400px;
+        right: 657px;
+        cursor:pointer;
+    }
+
+    .myul {
+        margin-bottom: 100px;
+    }
+
+    .message li {
+        border-bottom: 1px solid #dddddd;
+        padding-bottom: 15px;
+    }
+
+    h1 {
+        margin: 10px;
+        padding-top: 10px;
+    }
+
+    p {
+        font-size: 20px;
+        font-family: '楷体';
+    }
+    .message li {
+        background: #c4e3f3;
+        opacity: 0.8;
+        border-radius: 15px;
+        margin: 20px auto;
+    }
+</style>
+<body>
+<main class="main">
+    <h1 class="title">不过伪君子的留言板</h1>
+    <ul class="myul">
+        <li><span>留言标题：</span><input type="text" name="header"/></li>
+        <li><span>留言内容：</span><textarea name="content" id="" cols="80" rows="10"></textarea>
+            你还可以输入<label for="">500</label>个字<br></li>
+        <li>
+            <button>提交留言</button>
+        </li>
+    </ul>
+    <ul class="message">
+    </ul>
+</main>
+<h2 style="position: fixed;bottom:20px;right:50px;font-family: 楷体;font-size: 30px;color:#E41635">by卢鹏程</h2>
+</body>
+<script>
+    $(function () {
+
+
+        (function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        var obj = JSON.parse(xhr.responseText);
+                        for (var i in obj) {
+                            $('.message').append('<li style="padding-bottom: 20px">' + '<h1>' + obj[i].header + '</h1>' + '<div style="width: 1000px;height:20px;padding: 10px 10px">' + '<h3 style="display: inline-block;float: left;font-family:仿宋;font-weight: normal">' + obj[i].date + '</h3 >' + '<h3 style="display: inline-block;float: right;padding-right: 20px">' + '当前IP地址：' + obj[i].ip + '</h3>' + '</div>' + '<p style="font-family:楷体;text-indent: 2em;border-bottom: 2px solid red;padding-bottom: 20px;margin: 0 10px;">' + obj[i].content + '</p>' + '</li>');
+                        }
+                        console.log(obj[0].header);
+                    }
+                }
+            }
+            xhr.open('GET', '/Jqindex/get', true);
+            xhr.send(null);
+        })()
+        $('textarea').keyup(function () {
+            var count = getLength($(this).val())
+            $('label').text(500 - count);
+        })
+
+        function getLength(str) {
+            var reg = /[^\x00-xff]/g
+            return str.replace(reg, 'x').length
+        }
+
+
+        $('button').click(function () {
+                    var header = $('input').val();
+                    var content = $('textarea').val();
+                    if (header.length == 0 | content.length == 0) {
+                        alert('请您输入标题和内容');
+                    }
+                    else {
+                        $.post('/Jqindex',{header:header,content:content}, function (response, statusText, xhr) {
+                            $('.message').append('<li>' + '<h1>' + response[0] + '</h1>' + '<div style="width: 1000px;height:20px;padding: 5px 10px">' + '<h3 style="display: inline-block;float: left">' + response[2] + '</h3 >' + '<h3 style="display: inline-block;float: right;padding-right: 20px">' + '当前IP地址：' + response[3] + '</h3>' + '</div>' + '<p style="font-family:楷体;text-indent: 2em;border-bottom: 2px solid red;padding-bottom: 20px;margin: 0 10px;">' + response[1] + '</p>' + '</li>');
+                            console.log(response);
+                        })
+                        $('input').val('');
+                        $('textarea').val('');
+                    }
+                }
+        )
+        $('input').focus(function () {
+            $('input').css('borderColor','deepskyblue');
+        })
+        $('input').blur(function () {
+            $('input').css('borderColor','#dddddd');
+        })
+        $('textarea').focus(function () {
+            $('textarea').css('borderColor','deepskyblue');
+        })
+        $('textarea').blur(function () {
+            $('textarea').css('borderColor','#dddddd');
+        })
+    })
+</script>
+</html>

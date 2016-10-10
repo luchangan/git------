@@ -1,0 +1,56 @@
+@charset "utf-8";
+main {
+    width: 1000px;
+    margin: 0px auto;
+    padding: 10px 20px;
+}
+
+.students-list {
+
+}
+
+.students-list li {
+    float: left;
+    padding: 0px 20px;
+    display: inline;
+    height: 40px;
+    line-height:40px;
+    font-size:24px;
+    color:#333;
+    cursor:pointer;
+}
+.students-list li.active{
+    color:white;
+    background:#08b8f9;
+}
+.student-info{
+    margin-top: 30px;
+}
+img{
+    margin-bottom: 10px;
+}
+.student-info li{
+    font-size: 16px;
+    line-height: 36px;
+    color:#666;
+    padding: 0 10px;
+}
+.student-info li:nth-of-type(2n){
+    background: #eeeeee;
+}
+.students-search li {
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.students-search li label {
+    float: left;
+    display: inline-block;
+    width: 60px;
+    text-align: right
+}
+.students-search li input{
+    border: 1px solid #ccc;
+    height: 20px;
+    border-radius: 3px;
+}
